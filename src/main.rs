@@ -1,10 +1,9 @@
-use axum::{extract::Query,response::Html, routing::get, routing::post, Json, Router};
+use axum::{extract::Query, response::Html, routing::get, routing::post, Json, Router};
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 
 use utoipa::{OpenApi, ToSchema};
 use utoipa_swagger_ui::SwaggerUi;
-
 
 #[derive(OpenApi)]
 #[openapi(
@@ -23,26 +22,16 @@ use utoipa_swagger_ui::SwaggerUi;
 )]
 struct ApiDoc;
 
-#[utoipa::path(
-    post,
-    path = "/foo",
-    responses(
-        (status = 201, description = "item created successfully"),
-        (status = 409, description = "already exists")
-    )
-)]
 
 #[tokio::main]
 async fn main() {
-    
-    
     let swagger = SwaggerUi::new("/swagger-ui").url("/api-doc/openapi.json", ApiDoc::openapi());
-    
+
     let app = Router::new()
-    .route("/", get(handler))
-    .route("/foo", get(second_handler))
-    .route("/query", post(query_params))
-    .merge(swagger);
+        .route("/", get(handler))
+        .route("/foo", get(second_handler))
+        .route("/query", post(query_params))
+        .merge(swagger);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
 
@@ -79,8 +68,7 @@ async fn second_handler() -> Json<Message> {
     })
 }
 
-
-#[derive(Serialize, Deserialize,ToSchema)]
+#[derive(Serialize, Deserialize, ToSchema)]
 pub struct QueryParams {
     message: String,
     id: i32,
