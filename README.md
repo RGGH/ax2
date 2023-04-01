@@ -8,6 +8,6 @@ Axum API with Swagger UI
 
 ## 
   todo: 
-    take 2 params : i32, i32 and return result in JSON<br>
-    link with SQLX
+    - take 2 params : i32, i32 and return result in JSON<br>
+    - link with SQLX
 
