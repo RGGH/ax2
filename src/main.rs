@@ -1,4 +1,4 @@
-use axum::{extract::Query, response::Html, routing::get, routing::post, Json, Router};
+use axum::{extract::Query,response::Html, routing::get, routing::post, Json, Router};
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 
@@ -9,13 +9,16 @@ use utoipa_swagger_ui::SwaggerUi;
 #[derive(OpenApi)]
 #[openapi(
     paths(
-        
+
+        query_params,
+        second_handler
+
     ),
     components(
         schemas(QueryParams)
     ),
     tags(
-        (name = "todo", description = "Todo items management API")
+        (name = "AX2", description = "Special Management API")
     )
 )]
 struct ApiDoc;
@@ -23,23 +26,22 @@ struct ApiDoc;
 #[utoipa::path(
     post,
     path = "/foo",
-    request_body = Todo,
     responses(
-        (status = 201, description = "Todo item created successfully", body = Todo),
-        (status = 409, description = "Todo already exists", body = TodoError)
+        (status = 201, description = "item created successfully"),
+        (status = 409, description = "already exists")
     )
 )]
 
 #[tokio::main]
 async fn main() {
     
-    //
+    
     let swagger = SwaggerUi::new("/swagger-ui").url("/api-doc/openapi.json", ApiDoc::openapi());
     
     let app = Router::new()
     .route("/", get(handler))
     .route("/foo", get(second_handler))
-    .route("/bar", post(query_params))
+    .route("/query", post(query_params))
     .merge(swagger);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
@@ -63,18 +65,35 @@ async fn handler() -> Html<&'static str> {
     Html("<h1>Hello, World!</h1>")
 }
 
+#[utoipa::path(
+    get,
+    path="/foo",
+    responses(
+        (status = 201, description = "item created successfully"),
+        (status = 409, description = "already exists")
+    )
+)]
 async fn second_handler() -> Json<Message> {
     Json(Message {
         message: String::from("Hello, World2!"),
     })
 }
 
+
 #[derive(Serialize, Deserialize,ToSchema)]
-struct QueryParams {
+pub struct QueryParams {
     message: String,
     id: i32,
 }
 
-async fn query_params(Query(query): Query<QueryParams>) -> Json<QueryParams> {
+#[utoipa::path(
+    post, get,
+    path="/query",
+    responses(
+        (status = 201, description = "item created successfully"),
+        (status = 409, description = "already exists")
+    )
+)]
+pub async fn query_params(Query(query): Query<QueryParams>) -> Json<QueryParams> {
     Json(query)
 }

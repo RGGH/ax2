@@ -1,2 +1,3 @@
 POST http://localhost:3030/bar?message=bob&id=22
 #GET http://localhost:3030/foo
+#GET http://localhost:3030/swagger-ui/
