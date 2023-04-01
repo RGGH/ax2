@@ -1,1 +1,2 @@
-POST http://localhost:3030/bar?name=bob
+POST http://localhost:3030/bar?message=bob&id=22
+#GET http://localhost:3030/foo
