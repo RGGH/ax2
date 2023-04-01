@@ -7,9 +7,9 @@ Axum API with Swagger UI
 - create swagger UI
 - add POST and GET
 
-todo:`<br>`
+todo:<br>
 
-- take 2 params : i32, i32 and return result in JSON `<br>`
+- take 2 params : i32, i32 and return result in JSON <br>
 - eg.Currently this is returning JSON `<QueryParams>`
   ```params
   pub async fn query_params(Query(query): Query<QueryParams>) -> Json<QueryParams> {
