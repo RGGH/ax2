@@ -6,7 +6,7 @@ async fn main() {
     let app = Router::new().
     route("/", get(handler))
     .route("/foo", get(second_handler))
-    .route("/bar", post(get_param_with_multi_values));
+    .route("/bar", post(post_param_with_multi_values));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
 
@@ -33,7 +33,7 @@ async fn second_handler() -> Json<Message> {
     })
 }
 
-async fn get_param_with_multi_values(
+async fn post_param_with_multi_values(
     Query(params): Query<Vec<(String, String)>>
 ) -> String {
     format!("params: {:?}", params)
