@@ -37,11 +37,11 @@ async fn second_handler() -> Json<Message> {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct QueryParams {
+struct QueryParams {
     message: String,
     id: i32,
 }
 
-pub async fn query_params(Query(query): Query<QueryParams>) -> Json<QueryParams> {
+async fn query_params(Query(query): Query<QueryParams>) -> Json<QueryParams> {
     Json(query)
 }
