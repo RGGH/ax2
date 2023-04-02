@@ -1,4 +1,5 @@
 # ax2 - Rust
+[![Rust](https://github.com/RGGH/ax2/actions/workflows/rust.yml/badge.svg)](https://github.com/RGGH/ax2/actions/workflows/rust.yml)<br>
 
 Axum API with Swagger UI
 
