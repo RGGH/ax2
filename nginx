@@ -1,0 +1,14 @@
+[Unit]
+Description=I serve ax2-server
+After=network.target
+
+[Service]
+User=admin
+Group=www-data
+
+WorkingDirectory=/home/admin/
+ExecStart=/home/admin/ax2b
+
+[Install]
+WantedBy=multi-user.target
+
