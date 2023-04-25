@@ -33,7 +33,7 @@ async fn main() {
         .route("/query", post(query_params))
         .merge(swagger);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
 
     println!("Server now listening on {addr}");
 
