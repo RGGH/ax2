@@ -11,4 +11,3 @@ ExecStart=/home/admin/ax2b
 
 [Install]
 WantedBy=multi-user.target
-
